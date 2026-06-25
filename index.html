@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Resume Builder</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-theme="light">
+
+  <!-- ========== HEADER ========== -->
+  <header>
+    <div class="logo">Smart<span>Resume</span> Builder</div>
+    <div class="hbtns">
+      <button class="btn btn-outline" id="sampleBtn">Sample Data</button>
+      <button class="btn btn-danger"  id="clearBtn">Clear Form</button>
+      <button class="btn btn-warning" id="printBtn">Print / Save PDF</button>
+      <button class="btn btn-success" id="downloadBtn">Download PDF</button>
+      <button class="btn btn-dark"    id="darkBtn">Dark Mode</button>
+    </div>
+  </header>
+
+  <!-- ========== TEMPLATE BAR ========== -->
+  <div class="tpl-bar">
+    <span>Template:</span>
+    <button class="tpl-btn active" data-tpl="classic">Classic</button>
+    <button class="tpl-btn"        data-tpl="modern">Modern</button>
+    <button class="tpl-btn"        data-tpl="creative">Creative</button>
+  </div>
+
+  <!-- ========== MAIN LAYOUT ========== -->
+  <div class="layout">
+
+    <!-- FORM PANEL -->
+    <div class="form-panel">
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="personal">Personal</button>
+        <button class="tab-btn"        data-tab="summary">Summary</button>
+        <button class="tab-btn"        data-tab="experience">Experience</button>
+        <button class="tab-btn"        data-tab="education">Education</button>
+        <button class="tab-btn"        data-tab="skills">Skills</button>
+        <button class="tab-btn"        data-tab="projects">Projects</button>
+        <button class="tab-btn"        data-tab="certs">Certs</button>
+      </div>
+
+      <!-- PERSONAL TAB -->
+      <div class="tab-panel active" id="tab-personal">
+        <div class="photo-row">
+          <div class="photo-circle" id="photoCircle">
+            <span class="photo-icon">+</span>
+          </div>
+          <div>
+            <button class="btn photo-up-btn" id="photoBtn">Upload Photo</button>
+            <p style="font-size:.7rem;color:var(--text-muted);margin-top:.28rem">
+              Click to upload profile photo
+            </p>
+            <input type="file" id="photoInput" accept="image/*" style="display:none" />
+          </div>
+        </div>
+        <div class="fgrp">
+          <label>Full Name *</label>
+          <input type="text" id="fullName" placeholder="e.g. John Anderson" />
+        </div>
+        <div class="fgrp">
+          <label>Professional Title</label>
+          <input type="text" id="profTitle" placeholder="e.g. Senior Software Engineer" />
+        </div>
+        <div class="frow">
+          <div class="fgrp" style="margin-bottom:0">
+            <label>Email</label>
+            <input type="email" id="email" placeholder="john@example.com" />
+          </div>
+          <div class="fgrp" style="margin-bottom:0">
+            <label>Phone</label>
+            <input type="tel" id="phone" placeholder="+1 555 000 0000" />
+          </div>
+        </div>
+        <div class="fgrp" style="margin-top:.65rem">
+          <label>Location</label>
+          <input type="text" id="location" placeholder="San Francisco, CA" />
+        </div>
+        <div class="fgrp">
+          <label>LinkedIn</label>
+          <input type="text" id="linkedin" placeholder="linkedin.com/in/yourname" />
+        </div>
+        <div class="fgrp">
+          <label>Website / Portfolio</label>
+          <input type="text" id="website" placeholder="yoursite.com" />
+        </div>
+      </div>
+
+      <!-- SUMMARY TAB -->
+      <div class="tab-panel" id="tab-summary">
+        <div class="fgrp">
+          <label>Profile Summary</label>
+          <textarea id="summary" rows="8"
+            placeholder="Write a 3-4 sentence summary highlighting your expertise, key achievements, and career goals..."></textarea>
+          <div class="char-count" id="charCount">0 / 500</div>
+        </div>
+      </div>
+
+      <!-- EXPERIENCE TAB -->
+      <div class="tab-panel" id="tab-experience">
+        <div class="sec-hdr">
+          <span class="sec-title">Work Experience</span>
+          <button class="btn add-btn" id="addExpBtn">+ Add</button>
+        </div>
+        <div id="exp-list"></div>
+      </div>
+
+      <!-- EDUCATION TAB -->
+      <div class="tab-panel" id="tab-education">
+        <div class="sec-hdr">
+          <span class="sec-title">Education</span>
+          <button class="btn add-btn" id="addEduBtn">+ Add</button>
+        </div>
+        <div id="edu-list"></div>
+      </div>
+
+      <!-- SKILLS TAB -->
+      <div class="tab-panel" id="tab-skills">
+        <div class="sec-hdr">
+          <span class="sec-title">Skills</span>
+        </div>
+        <label>Type a skill and press Enter or comma</label>
+        <div class="skill-tags" id="skillTags"></div>
+        <p class="skill-hint">Backspace removes the last skill</p>
+      </div>
+
+      <!-- PROJECTS TAB -->
+      <div class="tab-panel" id="tab-projects">
+        <div class="sec-hdr">
+          <span class="sec-title">Projects</span>
+          <button class="btn add-btn" id="addProjBtn">+ Add</button>
+        </div>
+        <div id="proj-list"></div>
+      </div>
+
+      <!-- CERTIFICATIONS TAB -->
+      <div class="tab-panel" id="tab-certs">
+        <div class="sec-hdr">
+          <span class="sec-title">Certifications</span>
+          <button class="btn add-btn" id="addCertBtn">+ Add</button>
+        </div>
+        <div id="cert-list"></div>
+      </div>
+    </div>
+    <!-- /form-panel -->
+
+    <!-- PREVIEW PANEL -->
+    <div class="preview-panel tpl-classic" id="previewPanel">
+      <div class="prev-hdr">
+        <div style="display:flex;align-items:center;gap:.65rem">
+          <span class="prev-title">Live Preview</span>
+          <span class="live-dot">LIVE</span>
+        </div>
+      </div>
+      <div id="resume-out"></div>
+    </div>
+
+  </div>
+  <!-- /layout -->
+
+  <!-- PRINT / PDF MODAL -->
+  <div class="modal-bg" id="pdfModal">
+    <div class="modal">
+      <h3>Save Resume as PDF</h3>
+      <p>
+        Your browser's print dialog will open. Select
+        <strong>"Save as PDF"</strong> (or "Microsoft Print to PDF") as the
+        destination to download your resume as a PDF file.
+      </p>
+      <p style="margin-bottom:.5rem">
+        The form and header will be hidden — only your resume will print.
+      </p>
+      <div class="modal-btns">
+        <button class="btn btn-success" id="confirmPrint">Open Print Dialog</button>
+        <button class="btn btn-outline" id="cancelPrint">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div class="toast-wrap" id="toastWrap"></div>
+
+  <!-- SCRIPT -->
+  <script src="js/script.js"></script>
+</body>
+</html>
